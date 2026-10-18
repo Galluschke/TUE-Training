@@ -60,3 +60,9 @@ main{padding-bottom:calc(175px + env(safe-area-inset-bottom))!important}
 .studio-card h2{font-size:clamp(27px,7vw,40px);letter-spacing:-1px;overflow-wrap:anywhere}
 .studio-card-category{font-size:11px;letter-spacing:1.5px;color:var(--pink);font-weight:700;margin:9px 0 16px}
 @media(max-width:360px){.studio-quick button{padding-left:16px;padding-right:52px}.studio-quick .studio-ro .studio-main{font-size:21px}.studio-quick .studio-sub{letter-spacing:.6px}}
+/* TUE 5.0: keep editorial identity; render cover at intrinsic aspect ratio (never stretch). */
+.home-cover{height:auto!important;min-height:0!important;aspect-ratio:710 / 620;max-height:520px;display:flex;align-items:flex-end;padding:0 18px 19px!important;background-image:linear-gradient(180deg,transparent 18%,rgba(8,8,8,.03) 44%,#090909 100%),url('tue-portrait-banner.jpg')!important;background-position:center top!important;background-size:100% auto!important;background-repeat:no-repeat!important;background-color:#090909!important}
+.home-cover h1{font-size:clamp(30px,8.5vw,55px)}
+.progression-tip{margin:13px 0 9px;padding:9px 11px;border-left:2px solid var(--pink);background:#2a2226;color:#e6cbd3;font-size:11px;line-height:1.5}
+@media(min-width:650px){.home-cover{max-height:520px}}
+@media(max-width:380px){.home-cover{aspect-ratio:710 / 660}}
