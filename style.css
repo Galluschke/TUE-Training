@@ -69,3 +69,52 @@ main{padding-bottom:calc(175px + env(safe-area-inset-bottom))!important}
 
 /* v5.1: portrait never stretched; image retains native aspect ratio */
 .home-cover{background-size:100% 100%,contain!important;background-position:center center,center top!important;background-repeat:no-repeat!important;background-color:#090909!important}
+
+/* TUE 5.2 — cinematic, undistorted cover and staged reveal */
+.home-cover{
+  position:relative;isolation:isolate;overflow:hidden;
+  aspect-ratio:auto!important;max-height:none!important;
+  height:auto!important;min-height:0!important;
+  padding:clamp(235px,61vw,420px) 18px 24px!important;
+  display:block!important;
+  background:#090909!important;
+}
+.home-cover::before{
+  content:"";position:absolute;z-index:-2;inset:0 0 auto;
+  height:clamp(235px,58.45vw,420px);
+  background:url('tue-portrait-banner.jpg') center top / 100% auto no-repeat;
+  transform:scale(1.045);transform-origin:center 25%;
+}
+.home-cover::after{
+  content:"";position:absolute;z-index:-1;inset:0;
+  height:auto!important;
+  background:linear-gradient(to bottom,transparent 0%,transparent 35%,rgba(9,9,9,.2) 53%,#090909 74%,#090909 100%);
+  pointer-events:none;
+}
+.home-cover .cover-copy{position:relative;z-index:1}
+.home-cover h1{font-size:clamp(31px,8.5vw,55px);letter-spacing:-1.9px}
+.home-cover .home-kicker{font-size:clamp(9px,2.25vw,11px);letter-spacing:clamp(1.4px,.55vw,3px)}
+@media(min-width:650px){.home-cover{padding-left:25px!important;padding-right:25px!important}}
+@media(prefers-reduced-motion:no-preference){
+  .home-cover::before{animation:tueCoverZoom 7s ease-out both}
+  .home-cover .home-kicker{animation:tueRise .75s .35s both}
+  .home-cover h1{animation:tueRise .85s .53s both}
+  .home-cover .sub{animation:tueRise .8s .77s both}
+  .studio-title,.studio-quick{animation:tueRise .75s 1s both}
+}
+@keyframes tueCoverZoom{from{transform:scale(1.105);filter:brightness(.6)}to{transform:scale(1.045);filter:brightness(1)}}
+@keyframes tueRise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+/* Intro overlay is nonblocking after a short cinematic reveal */
+.tue-intro{position:fixed;inset:0;z-index:100;background:#080808;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .65s ease,visibility .65s ease}
+.tue-intro.out{opacity:0;visibility:hidden;pointer-events:none}
+.tue-intro-photo{position:absolute;inset:0;background:url('tue-portrait-banner.jpg') center 35% / min(130vw,850px) auto no-repeat;opacity:.27;transform:scale(1.08);animation:introImage 2.3s ease-out both}
+.tue-intro-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#080808 5%,transparent 65%,#08080899)}
+.tue-intro-content{position:relative;text-align:center;z-index:1;padding:22px}
+.tue-intro-mark{font-weight:950;font-size:clamp(92px,24vw,170px);letter-spacing:-.12em;padding-right:.12em;line-height:1;color:#f6f3f3;animation:introMark 1.35s cubic-bezier(.15,.75,.2,1) both}
+.tue-intro-line{height:2px;background:var(--pink);margin:17px auto 22px;width:0;animation:introLine .85s .65s ease-out forwards}
+.tue-intro-tag{font-size:11px;letter-spacing:3px;color:#e8a3b8;animation:tueRise .7s 1s both}
+.tue-intro-skip{position:absolute;right:20px;bottom:calc(28px + env(safe-area-inset-bottom));background:none;border:0;color:#bbb;letter-spacing:1px;padding:12px}
+@keyframes introMark{from{opacity:0;transform:scale(1.5);filter:blur(12px)}to{opacity:1;transform:scale(1);filter:blur(0)}}
+@keyframes introLine{to{width:155px}}
+@keyframes introImage{from{transform:scale(1.22)}to{transform:scale(1.08)}}
+@media(prefers-reduced-motion:reduce){.tue-intro,.tue-intro *{animation:none!important;transition:none!important}.tue-intro-line{width:155px}}
