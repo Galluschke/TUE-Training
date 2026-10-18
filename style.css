@@ -155,3 +155,26 @@ main{padding-bottom:calc(175px + env(safe-area-inset-bottom))!important}
 @media(prefers-reduced-motion:no-preference){
  .home-cover::before{animation:none!important}
 }
+
+/* 5.4: original image slides in as two matching halves, without zoom/cropping */
+.tue-intro{background:#080808;isolation:isolate}
+.tue-intro-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.tue-intro-panel{position:absolute;left:0;right:0;top:50%;height:auto;aspect-ratio:1254/605;background-image:url('tue-portrait-banner.jpg');background-size:100% 100%;background-repeat:no-repeat;transform:translateY(-50%);will-change:transform,opacity}
+.tue-intro-left{clip-path:inset(0 50% 0 0);animation:tueSlideLeft 1.15s cubic-bezier(.2,.8,.2,1) both}
+.tue-intro-right{clip-path:inset(0 0 0 50%);animation:tueSlideRight 1.15s cubic-bezier(.2,.8,.2,1) both}
+.tue-intro-stage:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,#080808 8%,transparent 38%,transparent 61%,#080808 90%);pointer-events:none}
+.tue-intro-content{margin-top:clamp(180px,50vw,300px);padding:12px 20px;z-index:2}
+.tue-intro-mark{font-family:inherit;font-size:clamp(72px,19vw,135px);font-weight:950;letter-spacing:-.105em;padding-right:.105em;line-height:1;animation:tueNewMark .65s 1.02s both}
+.tue-intro-line{animation:tueNewLine .55s 1.5s ease-out forwards;margin:16px auto 18px}
+.tue-intro-tag{animation:tueNewTag .6s 1.75s both}
+.tue-intro-skip{z-index:3}
+.tue-intro.out{transition:opacity .55s ease,visibility .55s ease}
+@keyframes tueSlideLeft{from{transform:translate(-105%, -50%);opacity:.5}to{transform:translate(0,-50%);opacity:1}}
+@keyframes tueSlideRight{from{transform:translate(105%, -50%);opacity:.5}to{transform:translate(0,-50%);opacity:1}}
+@keyframes tueNewMark{from{opacity:0;transform:translateY(18px) scale(.94);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes tueNewLine{to{width:150px}}
+@keyframes tueNewTag{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+ .tue-intro-left,.tue-intro-right,.tue-intro-mark,.tue-intro-line,.tue-intro-tag{animation:none!important;opacity:1!important;filter:none!important}
+ .tue-intro-line{width:150px}
+}
