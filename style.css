@@ -118,3 +118,40 @@ main{padding-bottom:calc(175px + env(safe-area-inset-bottom))!important}
 @keyframes introLine{to{width:155px}}
 @keyframes introImage{from{transform:scale(1.22)}to{transform:scale(1.08)}}
 @media(prefers-reduced-motion:reduce){.tue-intro,.tue-intro *{animation:none!important;transition:none!important}.tue-intro-line{width:155px}}
+
+
+/* TUE 5.3: Original artwork, full image, no crop, no scaling animation */
+.home-cover{
+  height:auto!important;max-height:none!important;min-height:0!important;
+  aspect-ratio:auto!important;
+  margin:0 -18px 0!important;
+  padding:0 18px 18px!important;
+  display:flex!important;flex-direction:column;align-items:stretch!important;
+  background:#090909!important;overflow:hidden;
+}
+.home-cover::before{
+  content:"";position:relative!important;display:block!important;
+  inset:auto!important;width:calc(100% + 36px)!important;
+  height:auto!important;aspect-ratio:1254 / 605;
+  margin:0 -18px 0!important;flex-shrink:0;
+  background-image:url('tue-portrait-banner.jpg')!important;
+  background-size:100% 100%!important;
+  background-position:center!important;background-repeat:no-repeat!important;
+  transform:none!important;filter:none!important;animation:none!important;
+}
+.home-cover::after{content:"";position:absolute;inset:0 0 auto!important;
+  top:calc((100vw * 605 / 1254) - 35px)!important;
+  height:42px!important;
+  background:linear-gradient(to bottom,transparent,#090909)!important;
+  pointer-events:none;
+}
+.home-cover .cover-copy{padding-top:8px;position:relative;z-index:1}
+.home-cover .home-kicker{letter-spacing:clamp(1.2px,.5vw,3px)}
+@media(min-width:650px){
+ .home-cover{margin:0 -25px!important;padding:0 25px 18px!important}
+ .home-cover::before{width:calc(100% + 50px)!important;margin:0 -25px!important}
+ .home-cover::after{top:calc(min(100vw,720px) * 605 / 1254 - 35px)!important}
+}
+@media(prefers-reduced-motion:no-preference){
+ .home-cover::before{animation:none!important}
+}
